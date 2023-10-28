@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<!-- JS読み込み -->
+    <!-- defer属性：htmlと並行で読み込んで画面表示性能が上がる-->
+	<script th:src="@{/webjars/jquery/jquery.min.js}" defer></script>
+	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" defer></script>
+	<!-- CSS読み込み -->
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+<title>ログイン</title>
+ 
+</head>
+<body>
+    <div class="text-center">
+        <h1>Login</h1>
+        <form method="post" th:action="@{/}">
+            <!--/* エラーメッセージ */-->
+            <p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"
+                th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}">
+                ログインエラーメッセージ</p>
+            <label>ユーザーID</label> <input type="text" name="username" /><br /> <br />
+            <label>パスワード</label> <input type="password" name="password" /><br />
+            <br />
+            <button class="btn btn-primary" type="submit">ログイン</button>
+        </form>
+    </div>
+ 
+</body>
+</html>
