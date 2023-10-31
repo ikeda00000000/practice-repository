@@ -6,19 +6,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import lombok.Data;
 
-
-@Data
+//lambokが効かない？インターフェースでgetterがあるから？
 public class User implements UserDetails {
-@Autowired
-private Account account;
-
-	private final Collection<GrantedAuthority> authorities;
+	/*
+	 * accountは宣言しただけで初期化してないnullなのに、
+	 * setUsername()しようとしたからぬるぽ投げられる。
+	 * そもそもここでセットしようとするのがよくないのでは？
+	 */
+	@Autowired
+	private Account account;
 	
-	public User(String username, String password,  Collection<GrantedAuthority> authorities) {
-		account.setUsername(username);
-		account.setPassword(password);
+	private Collection<GrantedAuthority> authorities;
+	
+	public User(Account account,  Collection<GrantedAuthority> authorities) {
+		
+//		account.setUsername(username);
+//		account.setPassword(password);
+		this.account = account;
 		this.authorities = authorities;
 		}
 	
@@ -32,9 +37,17 @@ private Account account;
 		return account.getUsername();
 	}
 	
+	public void setUsername(String username) {
+		account.setUsername(username);
+	}
+	
 	@Override
 	public String getPassword() {
 		return account.getPassword();
+	}
+	
+	public void setPassword(String password) {
+		account.setPassword(password);
 	}
 	
 	public String getRole() {

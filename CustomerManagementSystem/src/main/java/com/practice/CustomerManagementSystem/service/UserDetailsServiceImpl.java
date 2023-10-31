@@ -39,7 +39,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		//入力されたusenameに一致するAccountクラスを返す
 		Account account = this.userMapper.findByName(username);
 		
-		// ユーザが見つからなかった場合、例外を投げる
+		// ユーザが見つからなかった場合、例外を投げる。→うまくこのメッセージ使えてない気がする
 		if (account == null) {
 			throw new UsernameNotFoundException("User[" + username + "] not found.");
 		}
@@ -58,7 +58,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		auth.add(new SimpleGrantedAuthority("ROLE_" + account.getRole()));
 		
 		// DBから取得したaccountの情報を、User型（UserDetailsを実装したクラス）に詰め替える
-		User userDetails = new User(account.getUsername(), account.getPassword(), auth);
+		User userDetails = new User(account, auth);
+		userDetails.setUsername(account.getUsername());
+		userDetails.setPassword(account.getPassword());
+		
 		return userDetails;
 	}
 
