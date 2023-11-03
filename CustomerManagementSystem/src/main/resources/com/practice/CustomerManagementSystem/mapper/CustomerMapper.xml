@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.practice.CustomerManagementSystem.mapper.CustomerMapper">
+	
+	<!-- マッピング定義（顧客） -->
+	<resultMap id="customerResultMap" type="com.practice.CustomerManagementSystem.entity.Customer">
+	    <id property="customerId" column="customer_id" />
+	    <result property="customerName" column="customer_name" />
+	    <result property="individual" column="indivdual" />
+	    <result property="birth" column="birth" />
+	    <result property="zip" column="zip" />
+	    <result property="address" column="address" />
+	    <result property="tel" column="tel" />
+	    <result property="mail" column="mail" />
+	    <result property="isDeleted" column="isdeleted" />
+	    <association property="account" resultMap="accountResultMap" />
+	</resultMap>
+	
+	<!-- マッピング定義（担当者） -->
+	<resultMap id="accountResultMap" type="com.practice.CustomerManagementSystem.entity.Account">
+	    <id property="id" column="id" />
+	    <result property="username" column="username" />
+	</resultMap>
+
+	<!-- 全件取得 -->
+	<select id="getAll" resultMap="customerResultMap">
+	<!-- created_atとか変数にないけど、*で全部列取得してもエラーにならない。 -->
+	<!-- テーブル結合してusersのusernameを取得するのをつけたす -->
+		SELECT
+		   customer_id,
+		   customer_name,
+		   individual,
+		   birth,
+		   zip,
+		   address,
+		   tel,
+		   mail,
+		   account_id,
+		   username,
+		   isdeleted
+		FROM
+		    customers
+		LEFT JOIN
+		    users
+		ON
+		    customers.customer_id = users.id
+		ORDER BY customer_id
+	</select>
+</mapper>

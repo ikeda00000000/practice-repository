@@ -22,7 +22,6 @@ public class Customer{
 	//郵便番号
 	private String zip;
 	
-	
 	//住所
 	private String address;
 	
@@ -32,7 +31,7 @@ public class Customer{
 	// メールアドレス
 	private String mail;
 	
-	// 担当者ID、後で下記に統合する
+//	 担当者ID、後でAccount型に変更する
 //	private int accountId;
 	
 	// 担当者についてはAccount型クラスをメンバー変数に持つ
