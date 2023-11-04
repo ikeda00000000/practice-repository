@@ -10,6 +10,11 @@ import com.practice.CustomerManagementSystem.entity.Customer;
 @Mapper
 public interface CustomerMapper {
  
-    // 全顧客を取得するUserMapper.xml
+    // 全顧客を取得する
     public List<Customer> getAll();
+    
+    // キーワード検索の文字列を引数で受け取り、部分一致する顧客を取得する
+    public List<Customer> findByKeyword(String keyword);
+    
+    
 }

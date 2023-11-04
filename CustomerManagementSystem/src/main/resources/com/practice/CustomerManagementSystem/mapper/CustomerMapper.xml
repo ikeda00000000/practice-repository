@@ -47,4 +47,47 @@
 		    customers.customer_id = users.id
 		ORDER BY customer_id
 	</select>
+	
+	<!-- キーワード検索で一致する顧客を取得 -->
+	<select id="findByKeyword" parameterType="string" resultMap="customerResultMap">
+	    SELECT
+	       customer_id,
+		   customer_name,
+		   individual,
+		   birth,
+		   zip,
+		   address,
+		   tel,
+		   mail,
+		   account_id,
+		   username,
+		   isdeleted
+	    FROM
+		   customers
+		 LEFT JOIN
+		    users
+		ON
+		   customers.customer_id = users.id
+		WHERE
+		   customer_id LIKE '%${keyword}%'
+		   OR
+		       customer_name LIKE '%${keyword}%'
+		   OR
+		       individual LIKE '%${keyword}%'
+		   OR
+		       birth LIKE '%${keyword}%'
+		   OR
+		       zip LIKE '%${keyword}%'
+		   OR
+		       address LIKE '%${keyword}%'
+		   OR
+		       tel LIKE '%${keyword}%'
+		   OR
+		       mail LIKE '%${keyword}%'
+		   OR
+		       username LIKE '%${keyword}%'
+	
+	</select>
+	
+	
 </mapper>
