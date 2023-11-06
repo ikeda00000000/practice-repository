@@ -35,46 +35,8 @@
         </div>
       </nav>
 	<main>
-		<h1>顧客一覧</h1>
-		<a th:href="@{/customer-create}">新規登録</a>
-		<!-- th:action="@{}"…送信先を指定
-		　　 inputのname属性…コントローラーの@RequestParam("searchByKeyword")と紐づけ
-		     placeholder属性…入力がない場合に表示する案内文字
-		-->
-		<form th:action="@{/common/search}" method="get">
-			<input type="text" name="searchByKeyword" placeholder="検索キーワードを入力してください">
-			<button type="submit">検索</button>
-		</form>
-		
-		<table>
-			<tr>
-				<th>ID</th>
-				<th>名前</th>
-				<th>区分</th>
-				<th>担当</th>
-				<th></th>
-				<th></th>
-			</tr>
-			<tr th:each="customer:${customers}">
-				<td th:text="${customer.customerId}"></td>
-				<td th:text="${customer.customerName}"></td>
-				<!-- trueなら個人、falseなら法人と表示する -->
-				<td th:if="${customer.individual}" >個人</td>
-				<td th:if="${!customer.individual}" >法人</td>
-				<!-- 担当者の名前を表示させる -->
-				<td th:text="${customer.account.username}"></td>
-				<td>
-					<form th:action="@{/confirmation}" method="GET">
-					<button type="submit" th:values="${customer.customerId}" >確認</button>
-					</form>
-				</td>
-				<td>
-					<form th:action="@{/update}" method="GET">
-					<button type="submit" th:values="${customer.customerId}" >変更</button>
-					</form>
-				</td>
-			</tr>
-		</table>
+		<h1>情報変更画面</h1>
+	
 	</main>
 </body>
 </html>
