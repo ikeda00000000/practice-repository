@@ -32,9 +32,9 @@ public class WebSecurityConfig {
 		// それ以外のページは認証が必要
 		.anyRequest().authenticated()
 	   ).formLogin((form) -> form
-		// ログインを実行するページを指定。/にPOSTするとログイン処理
+		// ログインを実行するページを指定。/にPOSTするとログイン処理?ユーザー名・パスワードの送信先URL？
 		.loginProcessingUrl("/")
-		// ログイン画面の設定
+		// ログイン画面のURL
 		.loginPage("/")
 		// ログインに失敗した時の遷移先
 		.failureUrl("/")
@@ -65,27 +65,5 @@ public class WebSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 	
-//	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//	 return http
-//	 .authorizeHttpRequests(authorize -> authorize
-//	// /loginにはアクセス制限をかけない
-//	 .requestMatchers("/login").permitAll()
-//	 // それ以外のページは認証が必要
-//	 .anyRequest().authenticated())
-//	 // ログインを実行するページの設定
-//	 // /loginがログインページと指定
-//	 .formLogin(formLogin -> formLogin.loginPage("/login"))
-//	 .build();
-//	}
-	
-	
-	
-//	@Bean
-//	PasswordEncoder passwordEncoder() {
-//		Pbkdf2PasswordEncoder passwordEncoder =
-//				 Pbkdf2PasswordEncoder.defaultsForSpringSecurity_v5_8();
-//				 passwordEncoder.setEncodeHashAsBase64(true);
-//				 return passwordEncoder;
-//	}
 }
 
