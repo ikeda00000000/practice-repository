@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<meta charset="UTF-8">
+	<!-- JS読み込み -->
+	<script th:src="@{/webjars/jquery/jquery.min.js}" defer></script>
+	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" defer></script>
+	<!-- CSS読み込み -->
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+	<title>新規登録画面</title>
+</head>
+
+<body>
+	<nav>
+		<!-- ナビゲーション、目次、索引など -->
+		<nav class="navbar navbar-expand-sm navbar-light bg-light" th:fragment="header">
+			<div class="container-fluid">
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item"><a class="nav-link active" aria-current="page"
+								th:href="@{/common}">共通ページ</a></li>
+						<!--/* 管理者ロールだったら表示 */-->
+						<li class="nav-item" sec:authorize="hasRole('ADMIN')"><a class="nav-link active"
+								aria-current="page" th:href="@{/admin}">管理者ページ</a></li>
+						<!--/* ユーザロールだったら表示 */-->
+						<li class="nav-item" sec:authorize="hasRole('USER')"><a class="nav-link active"
+								aria-current="page" th:href="@{/user}">ユーザページ</a></li>
+					</ul>
+					<form class="d-flex" method="post" th:action="@{/logout}">
+						<button class="btn btn-outline-success" type="submit">ログアウト</button>
+					</form>
+				</div>
+			</div>
+		</nav>
+		<main>
+			<h1>新規登録画面</h1>
+			<form th:action="@{/customer/customer_create}" th:object="${createCustomerForm}" method="POST">
+				<div>
+					<label for="customer_name">氏名</label>
+					<input id="customer_name" type="text" th:field="*{customerName}" />
+				</div>
+				
+				<div>
+			    <label>区分</label>
+			    <!-- 初期値0法人になってるの直す-->
+			    <input id="is-individual" type="radio" value="1" th:field="*{individual}" checked /><label for="is-individual">個人</label>
+			    <input id="not-individual" type="radio" value="0" th:field="*{individual}" /><label for="not-individual">法人</label>
+                </div>
+
+				<div>
+					<label for="birth">誕生日</label>
+					<input id="birth" type="date" th:field="*{birth}" />
+				</div>
+
+				<div>
+					<label for="zip">郵便番号</label>
+					<input id="zip" type="text" th:field="*{zip}" />
+				</div>
+
+				<div>
+					<label for="address">住所</label>
+					<input id="address" type="text" th:field="*{address}" />
+				</div>
+				<div>
+					<label for="tel">電話番号</label>
+					<input id="te" type="tel" th:field="*{tel}" />
+				</div>
+
+				<div>
+					<label for="mail">E-mail</label>
+					<input id="mail" type="email" th:field="*{mail}" />
+				</div>
+
+                <!--
+				<div>
+					<label for="account">担当</label>
+					<select th;field="*{accountId}" >
+					<option th:each="" th:values="" th:text="" >
+				</div>
+				-->
+				
+				<div>
+					<input type="submit" value="新規登録">
+				</div>
+
+
+			</form>
+			
+			<a th:href="@{/common}">戻る</a>
+
+		</main>
+</body>
+
+</html>

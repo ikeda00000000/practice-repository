@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.practice.CustomerManagementSystem.entity.Customer;
+import com.practice.CustomerManagementSystem.form.CreateCustomerForm;
 import com.practice.CustomerManagementSystem.service.FindByKeywordService;
 import com.practice.CustomerManagementSystem.service.GetAllCustomersService;
 
@@ -29,6 +30,7 @@ public class UserController{
 	
 	@Autowired
 	private FindByKeywordService findByKeywordService;
+
 	
 	// "/"にリクエストがあったら
 	@GetMapping
@@ -67,6 +69,17 @@ public class UserController{
 		
 		return "common";
 	}
+	
+	// 新規登録画面へアクセス
+	@GetMapping("customer/customer_create")
+	public String customerCreate(Model model) {
+		model.addAttribute("createCustomerForm", new CreateCustomerForm());
+		return "customer/customer_create";
+	}
+//	@PostMapping()
+//	public String customerCreate(Model model) {
+//		
+//	}
 
 	
 	
