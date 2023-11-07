@@ -7,7 +7,7 @@
 	<resultMap id="customerResultMap" type="com.practice.CustomerManagementSystem.entity.Customer">
 	    <id property="customerId" column="customer_id" />
 	    <result property="customerName" column="customer_name" />
-	    <result property="individual" column="indivdual" />
+	    <result property="individual" column="individual" />
 	    <result property="birth" column="birth" />
 	    <result property="zip" column="zip" />
 	    <result property="address" column="address" />
@@ -36,7 +36,7 @@
 		   address,
 		   tel,
 		   mail,
-		   account_id,
+		   users.id,
 		   username,
 		   isdeleted
 		FROM
