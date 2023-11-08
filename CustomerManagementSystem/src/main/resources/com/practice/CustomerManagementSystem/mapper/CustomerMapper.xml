@@ -44,7 +44,7 @@
 		LEFT JOIN
 		    users
 		ON
-		    customers.customer_id = users.id
+		    customers.account_id = users.id
 		ORDER BY customer_id
 	</select>
 	
