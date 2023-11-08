@@ -40,13 +40,15 @@
 					<label for="customer_name">氏名</label>
 					<input id="customer_name" type="text" th:field="*{customerName}" />
 				</div>
-				
+
 				<div>
-			    <label>区分</label>
-			    <!-- 初期値0法人になってるの直す-->
-			    <input id="is-individual" type="radio" value="1" th:field="*{individual}" checked /><label for="is-individual">個人</label>
-			    <input id="not-individual" type="radio" value="0" th:field="*{individual}" /><label for="not-individual">法人</label>
-                </div>
+					<label>区分</label>
+					<!-- 初期値0法人になってるの直す-->
+					<input id="is-individual" type="radio" value="1" th:field="*{individual}" checked /><label
+						for="is-individual">個人</label>
+					<input id="not-individual" type="radio" value="0" th:field="*{individual}" /><label
+						for="not-individual">法人</label>
+				</div>
 
 				<div>
 					<label for="birth">誕生日</label>
@@ -72,22 +74,25 @@
 					<input id="mail" type="email" th:field="*{mail}" />
 				</div>
 
-                <!--
+
 				<div>
 					<label for="account">担当</label>
-					<select th;field="*{accountId}" >
-					<option th:each="" th:values="" th:text="" >
+					<select th;field="*{accountId}">
+						<option th:each="account:${accountList}" th:values="${account.id}"
+							th:text="${account.id} + ':' + ${account.username}"></option>
 				</div>
-				-->
-				
+
+
 				<div>
 					<input type="submit" value="新規登録">
 				</div>
 
 
 			</form>
-			
-			<a th:href="@{/common}">戻る</a>
+
+			<div>
+				<a th:href="@{/common}">戻る</a>
+			</div>
 
 		</main>
 </body>

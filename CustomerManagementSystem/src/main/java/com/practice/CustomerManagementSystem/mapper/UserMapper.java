@@ -1,6 +1,8 @@
 package com.practice.CustomerManagementSystem.mapper;
 
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.practice.CustomerManagementSystem.entity.Account;
@@ -16,4 +18,8 @@ public interface UserMapper {
      * @return ユーザ名に対応するユーザ
      */
     Account findByName(String name);
+    
+    List<Account> findAll();
+    
+    
 }

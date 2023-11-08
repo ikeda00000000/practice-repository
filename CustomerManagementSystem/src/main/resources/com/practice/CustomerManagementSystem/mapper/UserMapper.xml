@@ -14,11 +14,20 @@
 
 	<!-- 1件取得 -->
 	<select id="findByName" parameterType="string" resultMap="account">
-		select
+		SELECT
 		    *
-		from
+		FROM
 		    users
-		where
+		WHERE
 		    username=#{username}
+	</select>
+	
+	<!-- 全件取得 -->
+	<select id="findAll" resultMap="account">
+	    SELECT
+	        id,
+	        username
+	    FROM
+	        users
 	</select>
 </mapper>
