@@ -31,8 +31,8 @@ public class Customer{
 	// メールアドレス
 	private String mail;
 	
-//	 担当者ID、後でAccount型に変更する
-//	private int accountId;
+    // 不要と思ったけどフォームからの値を入れるときに使う？ 
+	private int accountId;
 	
 	// 担当者についてはAccount型クラスをメンバー変数に持つ
 	private Account account;

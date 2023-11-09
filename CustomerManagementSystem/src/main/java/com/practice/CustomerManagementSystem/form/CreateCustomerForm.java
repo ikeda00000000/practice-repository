@@ -6,7 +6,8 @@ import lombok.Data;
 public class CreateCustomerForm{
 	private String customerName;
 	
-	private boolean individual;
+	// フォームからは0・1を送るためint型
+	private int individual;
 	
 	private String birth;
 	
@@ -18,6 +19,6 @@ public class CreateCustomerForm{
 	
 	private String mail;
 	
-	private Long accountId;
+	private int accountId;
 	
 }
