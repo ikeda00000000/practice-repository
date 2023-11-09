@@ -89,5 +89,26 @@
 	
 	</select>
 	
+	<!-- 新規登録 -->
+	<insert id="create" parameterType="com.practice.CustomerManagementSystem.entity.Customer">
+	<!-- デフォルト値あれば、defaultで値を入れてくれる。ID(auto_increment)もいける。 -->
+	    INSERT INTO
+	        customers
+	    VALUES(
+	        default,
+	        #{customerName},
+	        #{individual},
+	        #{birth},
+	        #{zip},
+	        #{address},
+	        #{tel},
+	        #{mail},
+	        #{accountId},
+	        default,
+	        default,
+	        default
+	    )
+	</insert>
+	
 	
 </mapper>

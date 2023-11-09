@@ -5,16 +5,22 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.practice.CustomerManagementSystem.entity.Account;
 import com.practice.CustomerManagementSystem.entity.Customer;
 import com.practice.CustomerManagementSystem.form.CreateCustomerForm;
+import com.practice.CustomerManagementSystem.service.CreateCustomerService;
 import com.practice.CustomerManagementSystem.service.FindByKeywordService;
 import com.practice.CustomerManagementSystem.service.GetAllAccountsService;
 import com.practice.CustomerManagementSystem.service.GetAllCustomersService;
+
+import jakarta.validation.Valid;
 
 @Controller
 /*
@@ -33,6 +39,9 @@ public class UserController {
 
 	@Autowired
 	private GetAllAccountsService getAllAccountsService;
+	
+	@Autowired
+	private CreateCustomerService createCustomerService;
 
 	// "/"にリクエストがあったら
 	@GetMapping
@@ -84,9 +93,20 @@ public class UserController {
 		return "customer/customer_create";
 	}
 
-	//	@PostMapping()
-	//	public String customerCreate(Model model) {
-	//		
-	//	}
+	// 新規登録フォームの内容をDBへ反映
+	@PostMapping("customer/customer_create")
+	public String customerCreate(@Valid @ModelAttribute("createCustomerform") CreateCustomerForm form, BindingResult result,  Model model) {
+		if(result.hasErrors()) {
+			List<Account> accountList = getAllAccountsService.getAllAccounts();
+			model.addAttribute("createCustomerForm", form);
+			model.addAttribute("accountList", accountList);
+			return "customer/customer-create";
+		}
+		createCustomerService.create(form);
+		
+		// ホーム画面へ戻す。/をつけないと404エラー
+		return "redirect:/common";
+		
+	}
 
 }

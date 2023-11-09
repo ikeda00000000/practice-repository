@@ -16,5 +16,7 @@ public interface CustomerMapper {
     // キーワード検索の文字列を引数で受け取り、部分一致する顧客を取得する
     public List<Customer> findByKeyword(String keyword);
     
+    // 新規登録
+    public int create(Customer customer);
     
 }
