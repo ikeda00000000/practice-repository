@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,8 +20,6 @@ import com.practice.CustomerManagementSystem.service.CreateCustomerService;
 import com.practice.CustomerManagementSystem.service.FindByKeywordService;
 import com.practice.CustomerManagementSystem.service.GetAllAccountsService;
 import com.practice.CustomerManagementSystem.service.GetAllCustomersService;
-
-import jakarta.validation.Valid;
 
 @Controller
 /*
@@ -87,7 +86,7 @@ public class UserController {
 	public String customerCreate(Model model) {
 		// 担当者プルダウンに必要な情報をmodelに渡す
 		List<Account> accountList = getAllAccountsService.getAllAccounts();
-		model.addAttribute("createCustomerForm", new CreateCustomerForm());
+		model.addAttribute("form", new CreateCustomerForm());
 		model.addAttribute("accountList", accountList);
 
 		return "customer/customer_create";
@@ -95,12 +94,14 @@ public class UserController {
 
 	// 新規登録フォームの内容をDBへ反映
 	@PostMapping("customer/customer_create")
-	public String customerCreate(@Valid @ModelAttribute("createCustomerform") CreateCustomerForm form, BindingResult result,  Model model) {
+	public String customerCreate(@Validated @ModelAttribute("form") CreateCustomerForm form, BindingResult result,  Model model) {
+		
+		// viewから送られてきたmodelにエラーがあるかチェック、あればviewに戻す
 		if(result.hasErrors()) {
 			List<Account> accountList = getAllAccountsService.getAllAccounts();
-			model.addAttribute("createCustomerForm", form);
+			model.addAttribute("form", form);
 			model.addAttribute("accountList", accountList);
-			return "customer/customer-create";
+			return "customer/customer_create";
 		}
 		createCustomerService.create(form);
 		

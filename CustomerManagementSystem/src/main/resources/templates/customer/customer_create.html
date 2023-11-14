@@ -35,10 +35,11 @@
 		</nav>
 		<main>
 			<h1>新規登録画面</h1>
-			<form th:action="@{/customer/customer_create}" th:object="${createCustomerForm}" method="POST">
+			<form th:action="@{/customer/customer_create}" th:object="${form}" method="POST">
 				<div>
 					<label for="customer_name">氏名</label>
 					<input id="customer_name" type="text" th:field="*{customerName}" />
+					<p class="error-message" th:if="${#fields.hasErrors('customerName')}" th:errors="*{customerName}">errors</p>
 				</div>
 
 				<div>
@@ -58,20 +59,24 @@
 				<div>
 					<label for="zip">郵便番号</label>
 					<input id="zip" type="text" th:field="*{zip}" />
+					<p class="error-message" th:if="${#fields.hasErrors('zip')}" th:errors="*{zip}"></p>
 				</div>
 
 				<div>
 					<label for="address">住所</label>
 					<input id="address" type="text" th:field="*{address}" />
+					<p class="error-message" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
 				</div>
 				<div>
 					<label for="tel">電話番号</label>
 					<input id="te" type="tel" th:field="*{tel}" />
+					<p class="error-message" th:if="${#fields.hasErrors('tel')}" th:errors="*{tel}"></p>
 				</div>
 
 				<div>
 					<label for="mail">E-mail</label>
 					<input id="mail" type="email" th:field="*{mail}" />
+					<p class="error-message" th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}"></p>
 				</div>
 				<div>
 					<label for="account">担当</label>

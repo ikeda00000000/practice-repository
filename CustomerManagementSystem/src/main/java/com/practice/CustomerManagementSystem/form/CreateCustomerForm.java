@@ -1,24 +1,48 @@
 package com.practice.CustomerManagementSystem.form;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Data
 public class CreateCustomerForm{
+	
+	@NotBlank(message="氏名を入力してください")
+	@Pattern(regexp="^[ぁ-んァ-ヶｱ-ﾝﾞﾟ一-龠]{2,20}$")
+	//varchar(20) 2~20、漢字かなカタカナ 
+	
 	private String customerName;
 	
 	// フォームからは0・1を送るためint型
 	private int individual;
 	
+	@NotBlank(message="誕生日を入力してください")
+//	@Past
+	//date型
 	private String birth;
 	
+	@NotBlank(message="郵便番号を入力してください")
+	@Pattern(regexp="[0-9]{9}$")
+	//char(7)ハイフンなしで半角数字9桁
 	private String zip;
 	
+	@NotBlank(message="住所を入力してください")
+	@Pattern(regexp="")
+	//varchar(150)2文字以上～150文字、漢字ひらカナ半角数字、記号はーだけ？
 	private String address;
 	
+	// nullでもOK、varchar(11)ハイフンなしの半角数字11桁
+	@Pattern(regexp="[0-9]{11}$")
 	private String tel;
 	
+	// nullでもOK、varchar(255)
+	@Email
 	private String mail;
 	
+	//int(11)
 	private int accountId;
+	
+	// 登録時は必ずisdeleted=0なので用意しない
 	
 }
