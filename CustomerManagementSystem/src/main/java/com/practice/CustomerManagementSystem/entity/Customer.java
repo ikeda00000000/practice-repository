@@ -1,5 +1,7 @@
 package com.practice.CustomerManagementSystem.entity;
 
+import java.util.Date;
+
 import org.springframework.stereotype.Component;
 
 import lombok.Data;
@@ -17,7 +19,7 @@ public class Customer{
 	private boolean individual;
 	
 	//生年月日
-	private String birth;
+	private Date birth;
 	
 	//郵便番号
 	private String zip;
