@@ -9,7 +9,10 @@ spring:
      user:
       name: testuser
       password: pass001
+ messages:
+     basename: "ValidationMessages"
       
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
+    
