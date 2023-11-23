@@ -39,13 +39,14 @@
 				<div>
 					<label for="customer_name">氏名</label>
 					<input id="customer_name" type="text" th:field="*{customerName}" />
-					<p class="error-message" th:if="${#fields.hasErrors('customerName')}" th:errors="*{customerName}">errors</p>
+					<p class="error-message" th:if="${#fields.hasErrors('customerName')}" th:errors="*{customerName}">
+						errors</p>
 				</div>
 
 				<div>
 					<label>区分</label>
 					<!-- 初期値0法人になってるの直す-->
-					<input id="is-individual" type="radio" value="1" th:field="*{individual}" checked /><label
+					<input id="is-individual" type="radio" value="1" checked th:field="*{individual}"/><label
 						for="is-individual">個人</label>
 					<input id="not-individual" type="radio" value="0" th:field="*{individual}" /><label
 						for="not-individual">法人</label>
@@ -82,12 +83,13 @@
 					<label for="account">担当</label>
 					<select th:field="*{accountId}">
 						<option th:each="account:${accountList}" th:value="${account.id}"
-							th:text="${account.id} + ':' + ${account.username}"></option>
+							th:text="${account.id} + ':' + ${account.username}">
+						</option>
+					</select>
 				</div>
 				<div>
 					<input type="submit" value="新規登録">
 				</div>
-
 
 			</form>
 

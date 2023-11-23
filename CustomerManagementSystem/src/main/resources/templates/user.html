@@ -1,21 +1,13 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
-<head>
-	<meta charset="UTF-8">
-	<title>ユーザー</title>
-	
-    <!-- JS読み込み -->
-	<script th:src="@{/webjars/jquery/jquery.min.js}" defer></script>
-	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" defer></script>
-	<!-- CSS読み込み -->
-	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+<head th:replace="~{parts/parts :: meta_header('ユーザーページ',~{::link},~{::script})}">
 	<title></title>
 </head>
 
 <body>
-	<th:block th:replace="common :: header" />
+	<div th:replace="parts/parts::nav"></div>
 	<main>
-		<h1>ユーザーページ</h1>
+
 	</main>
 </body>
 </html>

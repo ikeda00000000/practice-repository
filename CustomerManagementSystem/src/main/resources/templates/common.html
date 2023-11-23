@@ -2,38 +2,15 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org"
     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	
-<head>
-	<meta charset="UTF-8">
-	<!-- JS読み込み -->
-	<script th:src="@{/webjars/jquery/jquery.min.js}" defer></script>
-	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" defer></script>
-	<!-- CSS読み込み -->
-	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+<!--(1)共通headerで置き換える-->
+<head th:replace="~{parts/parts :: meta_header('top',~{::link},~{::script})}">
 	<title></title>
 </head>
 
 <body>
-	<nav>
-	<!-- ナビゲーション、目次、索引など -->
-	 <nav class="navbar navbar-expand-sm navbar-light bg-light" th:fragment="header">
-        <div class="container-fluid">
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link active"
-                        aria-current="page" th:href="@{/common}">共通ページ</a></li>
-                    <!--/* 管理者ロールだったら表示 */-->
-                    <li class="nav-item" sec:authorize="hasRole('ADMIN')"><a
-                        class="nav-link active" aria-current="page" th:href="@{/admin}">管理者ページ</a></li>
-                    <!--/* ユーザロールだったら表示 */-->
-                    <li class="nav-item" sec:authorize="hasRole('USER')"><a
-                        class="nav-link active" aria-current="page" th:href="@{/user}">ユーザページ</a></li>
-                </ul>
-                <form class="d-flex" method="post" th:action="@{/logout}">
-                    <button class="btn btn-outline-success" type="submit">ログアウト</button>
-                </form>
-            </div>
-        </div>
-      </nav>
+	<!--共通化したfragmentを呼び出す-->
+	<div th:replace="parts/parts::nav"></div>
+      
 	<main>
 		<h1>顧客一覧</h1>
 		<a th:href="@{customer/customer_create}">新規登録</a>
