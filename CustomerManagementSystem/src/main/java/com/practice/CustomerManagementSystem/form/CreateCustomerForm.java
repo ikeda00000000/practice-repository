@@ -2,8 +2,11 @@ package com.practice.CustomerManagementSystem.form;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -21,18 +24,19 @@ public class CreateCustomerForm{
 	// フォームからは0・1を送るためint型
 	private int individual;
 	
-//	@NotBlank
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@NotNull
 	@Past
 	private Date birth;
 	
 	@NotBlank
-	@Pattern(regexp="^([0-9]{9})?$")
-	//char(7)ハイフンなしで半角数字9桁
+	@Pattern(regexp="^([0-9]{7})?$")
+	//char(7)ハイフンなしで半角数字7桁
 	private String zip;
 	
 	@NotBlank
 	@Size(min=2, max=150)
-	@Pattern(regexp="^([ぁ-んァ-ヶｱ-ﾝﾞﾟ一-龠0-9-])?")
+	@Pattern(regexp="^([ぁ-んァ-ヶｱ-ﾝﾞﾟ一-龠0-9-])*")
 	//varchar(150)2文字以上～150文字、漢字ひらカナ半角数字、記号はーだけ？
 	private String address;
 	
