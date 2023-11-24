@@ -11,6 +11,12 @@ spring:
       password: pass001
  messages:
      basename: "ValidationMessages"
+
+logging:
+     level:
+         org:
+             springframework:
+                 security: DEBUG
       
 mybatis:
   configuration:
