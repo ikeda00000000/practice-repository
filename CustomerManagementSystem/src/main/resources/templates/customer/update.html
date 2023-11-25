@@ -1,42 +1,81 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org"
-    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-	
-<head>
-	<meta charset="UTF-8">
-	<!-- JS読み込み -->
-	<script th:src="@{/webjars/jquery/jquery.min.js}" defer></script>
-	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" defer></script>
-	<!-- CSS読み込み -->
-	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<!--共通headerで置き換える-->
+
+<head th:replace="~{parts/parts :: meta_header('top',~{::link},~{::script})}">
 	<title></title>
 </head>
 
 <body>
-	<nav>
-	<!-- ナビゲーション、目次、索引など -->
-	 <nav class="navbar navbar-expand-sm navbar-light bg-light" th:fragment="header">
-        <div class="container-fluid">
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link active"
-                        aria-current="page" th:href="@{/common}">共通ページ</a></li>
-                    <!--/* 管理者ロールだったら表示 */-->
-                    <li class="nav-item" sec:authorize="hasRole('ADMIN')"><a
-                        class="nav-link active" aria-current="page" th:href="@{/admin}">管理者ページ</a></li>
-                    <!--/* ユーザロールだったら表示 */-->
-                    <li class="nav-item" sec:authorize="hasRole('USER')"><a
-                        class="nav-link active" aria-current="page" th:href="@{/user}">ユーザページ</a></li>
-                </ul>
-                <form class="d-flex" method="post" th:action="@{/logout}">
-                    <button class="btn btn-outline-success" type="submit">ログアウト</button>
-                </form>
-            </div>
-        </div>
-      </nav>
+	<!--共通化したfragmentを呼び出す-->
+	<div th:replace="parts/parts::nav"></div>
 	<main>
 		<h1>情報変更画面</h1>
-	
+		<form th:action="@{/customer/create}" th:object="${form}" method="POST">
+			<div>
+				<label for="customer_name">氏名</label>
+				<input id="customer_name" type="text" th:field="*{customerName}" />
+				<p class="error-message" th:if="${#fields.hasErrors('customerName')}" th:errors="*{customerName}">errors
+				</p>
+			</div>
+
+			<div>
+				<label>区分</label>
+				<!-- 初期値0法人になってるの直す-->
+				<input id="is-individual" type="radio" value="1" checked th:field="*{individual}" /><label
+					for="is-individual">個人</label>
+				<input id="not-individual" type="radio" value="0" th:field="*{individual}" /><label
+					for="not-individual">法人</label>
+			</div>
+
+			<div>
+				<label for="birth">誕生日</label>
+				<input id="birth" type="date" th:field="*{birth}" />
+				<p class="error-message" th:if="${#fields.hasErrors('birth')}" th:errors="*{birth}">errors</p>
+			</div>
+
+			<div>
+				<label for="zip">郵便番号</label>
+				<input id="zip" type="text" th:field="*{zip}" />
+				<p class="error-message" th:if="${#fields.hasErrors('zip')}" th:errors="*{zip}"></p>
+			</div>
+
+			<div>
+				<label for="address">住所</label>
+				<input id="address" type="text" th:field="*{address}" />
+				<p class="error-message" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
+			</div>
+			<div>
+				<label for="tel">電話番号</label>
+				<input id="te" type="tel" th:field="*{tel}" />
+				<p class="error-message" th:if="${#fields.hasErrors('tel')}" th:errors="*{tel}"></p>
+			</div>
+
+			<div>
+				<label for="mail">E-mail</label>
+				<input id="mail" type="email" th:field="*{mail}" />
+				<p class="error-message" th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}"></p>
+			</div>
+			<div>
+				<label for="account">担当</label>
+				<select th:field="*{accountId}">
+					<option th:each="account:${accountList}" th:value="${account.id}"
+						th:text="${account.id} + ':' + ${account.username}">
+					</option>
+				</select>
+			</div>
+			<div>
+				<input type="submit" value="新規登録">
+			</div>
+
+		</form>
+
+		<div>
+			<a th:href="@{/common}">戻る</a>
+		</div>
+
 	</main>
 </body>
+
 </html>
