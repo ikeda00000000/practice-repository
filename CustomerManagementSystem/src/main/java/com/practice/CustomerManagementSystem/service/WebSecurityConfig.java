@@ -21,8 +21,8 @@ public class WebSecurityConfig {
 		http
 		// 認証と認可に関する設定
 		.authorizeHttpRequests(
-		// /はアクセス制限かけない
-				(requests) -> requests.requestMatchers("/").permitAll()
+		// /login/indexはアクセス制限かけない
+				(requests) -> requests.requestMatchers("/login/**").permitAll()
 		// /adminはADMINロールをもつユーザのみアクセス可能
 		// TODO 必要に応じて/admin/*
 		.requestMatchers("/admin").hasRole("ADMIN")
@@ -32,12 +32,12 @@ public class WebSecurityConfig {
 		// それ以外のページは認証が必要
 		.anyRequest().authenticated()
 	   ).formLogin((form) -> form
-		// ログインを実行するページを指定。/にPOSTするとログイン処理?ユーザー名・パスワードの送信先URL？
-		.loginProcessingUrl("/")
-		// ログイン画面のURL
-		.loginPage("/")
+		// ログインを実行するページを指定。次のログインページのformがこのURLにPOST?するとログイン認証の処理が開始される
+		.loginProcessingUrl("/login/index")
+		// 実際のログイン画面のURL
+		.loginPage("/login/index")
 		// ログインに失敗した時の遷移先
-		.failureUrl("/")
+		.failureUrl("/login/index")
 		// ユーザIDとパスワードのname設定
 		.usernameParameter("username")
 		.passwordParameter("password")
@@ -47,7 +47,7 @@ public class WebSecurityConfig {
 		// ログアウト処理を行うページ指定、ここにPOSTするとログアウト
 		.logoutUrl("/logout")
 		// ログアウトした時の遷移先
-		.logoutSuccessUrl("/")
+		.logoutSuccessUrl("/login/index")
 		);
 		return http.build();
 	}

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.practice.CustomerManagementSystem.entity.Account;
 import com.practice.CustomerManagementSystem.entity.Customer;
 import com.practice.CustomerManagementSystem.form.CreateCustomerForm;
+import com.practice.CustomerManagementSystem.form.UpdateCustomerForm;
 import com.practice.CustomerManagementSystem.service.CreateCustomerService;
 import com.practice.CustomerManagementSystem.service.FindByKeywordService;
 import com.practice.CustomerManagementSystem.service.GetAllAccountsService;
@@ -43,10 +44,10 @@ public class UserController {
 	private CreateCustomerService createCustomerService;
 
 	// "/"にリクエストがあったら
-	@GetMapping
+	@GetMapping("login/index")
 	public String index() {
 		// ログインフォームを提供する
-		return "index";
+		return "/login/index";
 	}
 
 	// ログイン成功時の共通画面
@@ -82,32 +83,44 @@ public class UserController {
 	}
 
 	// 新規登録画面へアクセス
-	@GetMapping("customer/customer_create")
+	@GetMapping("customer/create")
 	public String customerCreate(Model model) {
 		// 担当者プルダウンに必要な情報をmodelに渡す
-		List<Account> accountList = getAllAccountsService.getAllAccounts();
+		makePullDown(model);
 		model.addAttribute("form", new CreateCustomerForm());
-		model.addAttribute("accountList", accountList);
 
-		return "customer/customer_create";
+		return "customer/create";
 	}
 
 	// 新規登録フォームの内容をDBへ反映
-	@PostMapping("customer/customer_create")
+	@PostMapping("customer/create")
 	public String customerCreate(@Validated @ModelAttribute("form") CreateCustomerForm form, BindingResult result,  Model model) {
 		
 		// viewから送られてきたmodelにエラーがあるかチェック、あればviewに戻す
 		if(result.hasErrors()) {
-			List<Account> accountList = getAllAccountsService.getAllAccounts();
+			makePullDown(model);
 			model.addAttribute("form", form);
-			model.addAttribute("accountList", accountList);
-			return "customer/customer_create";
+			return "customer/create";
 		}
 		createCustomerService.create(form);
 		
 		// ホーム画面へ戻す。/をつけないと404エラー
 		return "redirect:/common";
 		
+	}
+	
+	// 編集画面へアクセス
+	@GetMapping("customer/update")
+	public String customerUpdate(Model model) {
+		makePullDown(model);
+		model.addAttribute("form", new UpdateCustomerForm());
+		return "customer/update";
+	}
+	
+	// 担当者のプルダウンを作成するメソッド
+	public void makePullDown(Model model) {
+		List<Account> accountList = getAllAccountsService.getAllAccounts();
+		model.addAttribute("accountList", accountList);
 	}
 
 }

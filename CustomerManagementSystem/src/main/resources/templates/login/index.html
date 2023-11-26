@@ -14,7 +14,7 @@
 <body>
     <div class="text-center">
         <h1>Login</h1>
-        <form method="post" th:action="@{/}">
+        <form method="post" th:action="@{/login/index}">
             <!--/* エラーメッセージ */-->
             <p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"
                 th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}">
