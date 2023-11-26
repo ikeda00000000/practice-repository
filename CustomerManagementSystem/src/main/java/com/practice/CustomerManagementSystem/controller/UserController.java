@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +19,7 @@ import com.practice.CustomerManagementSystem.entity.Customer;
 import com.practice.CustomerManagementSystem.form.CreateCustomerForm;
 import com.practice.CustomerManagementSystem.form.UpdateCustomerForm;
 import com.practice.CustomerManagementSystem.service.CreateCustomerService;
+import com.practice.CustomerManagementSystem.service.FindByCustomerIdService;
 import com.practice.CustomerManagementSystem.service.FindByKeywordService;
 import com.practice.CustomerManagementSystem.service.GetAllAccountsService;
 import com.practice.CustomerManagementSystem.service.GetAllCustomersService;
@@ -42,6 +44,9 @@ public class UserController {
 	
 	@Autowired
 	private CreateCustomerService createCustomerService;
+	
+	@Autowired
+	private FindByCustomerIdService findByCustomerIdService; 
 
 	// "/"にリクエストがあったら
 	@GetMapping("login/index")
@@ -110,10 +115,12 @@ public class UserController {
 	}
 	
 	// 編集画面へアクセス
-	@GetMapping("customer/update")
-	public String customerUpdate(Model model) {
+	@GetMapping("customer/update/{id}")
+	public String customerUpdate(@PathVariable("id") Long id, Model model) {
 		makePullDown(model);
+		Customer customer = findByCustomerIdService.findByCustomerId(id);
 		model.addAttribute("form", new UpdateCustomerForm());
+		model.addAttribute("customer", customer);
 		return "customer/update";
 	}
 	

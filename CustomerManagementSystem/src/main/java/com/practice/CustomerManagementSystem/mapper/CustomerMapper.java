@@ -19,4 +19,7 @@ public interface CustomerMapper {
     // 新規登録
     public int create(Customer customer);
     
+    // IDで1件取得
+    public Customer findByCustomerId(Long id);
+    
 }

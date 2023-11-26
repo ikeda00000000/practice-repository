@@ -26,7 +26,6 @@
 	<!-- 全件取得 -->
 	<select id="getAll" resultMap="customerResultMap">
 	<!-- created_atとか変数にないけど、*で全部列取得してもエラーにならない。 -->
-	<!-- テーブル結合してusersのusernameを取得するのをつけたす -->
 		SELECT
 		   customer_id,
 		   customer_name,
@@ -91,7 +90,7 @@
 	
 	<!-- 新規登録 -->
 	<insert id="create" parameterType="com.practice.CustomerManagementSystem.entity.Customer">
-	<!-- デフォルト値あれば、defaultで値を入れてくれる。ID(auto_increment)もいける。 -->
+	<!-- デフォルト値設定していれば、defaultで値を入れてくれる。ID(auto_increment)もいける。 -->
 	    INSERT INTO
 	        customers
 	    VALUES(
@@ -109,6 +108,27 @@
 	        default
 	    )
 	</insert>
+	
+	<!-- IDに一致する1件を取得 -->
+	<select id="findByCustomerId" parameterType="Long">
+	    SELECT
+	        customer_id,
+		    customer_name,
+		    individual,
+		    birth,
+		    zip,
+		    address,
+		    tel,
+		    mail,
+		    account_id,
+		    isdeleted
+	    FROM
+	        customers
+	    WHERE
+	        customer_id = #{id}
+
+	</select>
+	
 	
 	
 </mapper>
