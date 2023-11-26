@@ -75,7 +75,7 @@ public class User implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		// 有効なアカウントかをチェック
-		return true;
+		return account.isEnabled();
 	}
 
 }

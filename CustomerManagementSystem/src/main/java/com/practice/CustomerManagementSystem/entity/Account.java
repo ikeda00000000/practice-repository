@@ -21,4 +21,7 @@ public class Account {
 	
 	@NotNull
 	private String role;
+	
+	@NotNull
+	private boolean isEnabled;
 }
