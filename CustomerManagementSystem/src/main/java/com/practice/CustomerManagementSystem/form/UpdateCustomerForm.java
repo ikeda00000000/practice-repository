@@ -14,6 +14,7 @@ import lombok.Data;
 
 @Data
 public class UpdateCustomerForm{
+	private int customerId;
 	
 	@NotBlank
 	@Pattern(regexp="^([ぁ-んァ-ヶｱ-ﾝﾞﾟ一-龠]{2,20})?$")

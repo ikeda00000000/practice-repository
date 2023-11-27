@@ -15,29 +15,28 @@
 		<form th:action="@{/customer/create}" th:object="${form}" method="POST">
 			<div>
 				<label for="customer_name">氏名</label>
-				<input id="customer_name" type="text" th:field="*{customerName}" />
+				<input id="customer_name" type="text" th:field="*{customerName}"/>
 				<p class="error-message" th:if="${#fields.hasErrors('customerName')}" th:errors="*{customerName}">errors
 				</p>
 			</div>
 
 			<div>
 				<label>区分</label>
-				<!-- 初期値0法人になってるの直す-->
-				<input id="is-individual" type="radio" value="1" checked th:field="*{individual}" /><label
-					for="is-individual">個人</label>
-				<input id="not-individual" type="radio" value="0" th:field="*{individual}" /><label
-					for="not-individual">法人</label>
+				<input id="is-individual" type="radio" value="1" checked th:field="*{individual}" />
+				<label for="is-individual">個人</label>
+				<input id="not-individual" type="radio" value="0" th:field="*{individual}" />
+				<label for="not-individual">法人</label>
 			</div>
 
 			<div>
 				<label for="birth">誕生日</label>
-				<input id="birth" type="date" th:field="*{birth}" th:value="${customer.birth}"/>
+				<input id="birth" type="date" th:field="*{birth}" />
 				<p class="error-message" th:if="${#fields.hasErrors('birth')}" th:errors="*{birth}">errors</p>
 			</div>
 
 			<div>
 				<label for="zip">郵便番号</label>
-				<input id="zip" type="text" th:field="*{zip}" th:value="${customer.zip}"/>
+				<input id="zip" type="text" th:field="*{zip}" />
 				<p class="error-message" th:if="${#fields.hasErrors('zip')}" th:errors="*{zip}"></p>
 			</div>
 
@@ -66,7 +65,7 @@
 				</select>
 			</div>
 			<div>
-				<input type="submit" value="新規登録">
+				<input type="submit" value="更新">
 			</div>
 
 		</form>

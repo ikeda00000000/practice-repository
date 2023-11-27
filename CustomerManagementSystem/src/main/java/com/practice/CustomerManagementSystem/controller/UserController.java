@@ -21,10 +21,10 @@ import com.practice.CustomerManagementSystem.entity.User;
 import com.practice.CustomerManagementSystem.form.CreateCustomerForm;
 import com.practice.CustomerManagementSystem.form.UpdateCustomerForm;
 import com.practice.CustomerManagementSystem.service.CreateCustomerService;
-import com.practice.CustomerManagementSystem.service.FindByCustomerIdService;
 import com.practice.CustomerManagementSystem.service.FindByKeywordService;
 import com.practice.CustomerManagementSystem.service.GetAllAccountsService;
 import com.practice.CustomerManagementSystem.service.GetAllCustomersService;
+import com.practice.CustomerManagementSystem.service.PrepareUpdateCustomerFormService;
 
 @Controller
 @RequestMapping("/")
@@ -43,7 +43,7 @@ public class UserController {
 	private CreateCustomerService createCustomerService;
 	
 	@Autowired
-	private FindByCustomerIdService findByCustomerIdService; 
+	private PrepareUpdateCustomerFormService prepareUpdateCustomerFormService; 
 
 	// "/"にリクエストがあったら
 	@GetMapping("login/index")
@@ -55,8 +55,8 @@ public class UserController {
 	// ログイン成功時の共通画面
 	@GetMapping("common")
 	public String common(@AuthenticationPrincipal User user, Model model) {
-		// 一覧表示のserviceを呼び出す
 		List<Customer> customers = getAllCustomersService.getAllCustomers();
+		// ログイン中のセッションユーザー情報をviewに渡す
 		model.addAttribute("user", user);
 		model.addAttribute("customers", customers);
 		return "common";
@@ -116,9 +116,8 @@ public class UserController {
 	@GetMapping("customer/update/{id}")
 	public String customerUpdate(@PathVariable("id") Long id, Model model) {
 		makePullDown(model);
-		Customer customer = findByCustomerIdService.findByCustomerId(id);
-		model.addAttribute("form", new UpdateCustomerForm());
-		model.addAttribute("customer", customer);
+		UpdateCustomerForm form = prepareUpdateCustomerFormService.prepareUpdateCustomerForm(id);
+		model.addAttribute("form", form);
 		return "customer/update";
 	}
 	
