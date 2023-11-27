@@ -1,4 +1,4 @@
-package com.practice.CustomerManagementSystem.service;
+package com.practice.CustomerManagementSystem.service.login;
 
 import java.util.HashSet;
 import java.util.Set;

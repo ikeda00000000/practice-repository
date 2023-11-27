@@ -1,4 +1,4 @@
-package com.practice.CustomerManagementSystem.service;
+package com.practice.CustomerManagementSystem.service.login;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,7 +32,7 @@ public class WebSecurityConfig {
 		// それ以外のページは認証が必要
 		.anyRequest().authenticated()
 	   ).formLogin((form) -> form
-		// ログインを実行するページを指定。次のログインページのformがこのURLにPOST?するとログイン認証の処理が開始される
+		// ログインページのformがth:actionでこのURLにPOST?するとログイン認証の処理が開始される
 		.loginProcessingUrl("/login/index")
 		// 実際のログイン画面のURL
 		.loginPage("/login/index")

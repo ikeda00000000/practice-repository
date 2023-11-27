@@ -1,21 +1,16 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<!-- JS読み込み -->
-    <!-- defer属性：htmlと並行で読み込んで画面表示性能が上がる-->
-	<script th:src="@{/webjars/jquery/jquery.min.js}" defer></script>
-	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" defer></script>
-	<!-- CSS読み込み -->
-	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
-<title>ログイン</title>
- 
+<html lang="ja" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	
+<!--共通headerで置き換える-->
+<head th:replace="~{parts/parts :: meta_header('top',~{::link},~{::script})}">
+	<title></title>
 </head>
 <body>
     <div class="text-center">
         <h1>Login</h1>
         <form method="post" th:action="@{/login/index}">
-            <!--/* エラーメッセージ */-->
+            <!--/* 認証エラー時に発生したオブジェクトはSPRING_…で保持される */-->
             <p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"
                 th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}">
                 ログインエラーメッセージ</p>
