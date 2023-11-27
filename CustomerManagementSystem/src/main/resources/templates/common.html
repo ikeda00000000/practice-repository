@@ -2,7 +2,7 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org"
     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	
-<!--(1)共通headerで置き換える-->
+<!--共通headerで置き換える-->
 <head th:replace="~{parts/parts :: meta_header('top',~{::link},~{::script})}">
 	<title></title>
 </head>
@@ -13,7 +13,7 @@
       
 	<main>
 		<h1>顧客一覧</h1>
-		<a th:href="@{customer/customer_create}">新規登録</a>
+		<a th:href="@{customer/create}">新規登録</a>
 		<!-- th:action="@{}"…送信先を指定
 		　　 inputのname属性…コントローラーの@RequestParam("searchByKeyword")と紐づけ
 		     placeholder属性…入力がない場合に表示する案内文字
@@ -41,13 +41,14 @@
 				<!-- 担当者の名前を表示させる -->
 				<td th:text="${customer.account.username}"></td>
 				<td>
-					<form th:action="@{/confirmation}" method="GET">
-					<button type="submit" th:values="${customer.customerId}" >確認</button>
+					<!--URLの最後にidのパラーメーターを送ってcontrollerでidとして受け取る -->
+					<form th:action="@{customer/confirmation/{id}(id=${customer.customerId})}" method="GET">
+					<button type="submit" name ="confirmation" th:value="${customer.customerId}" >確認</button>
 					</form>
 				</td>
 				<td>
-					<form th:action="@{/update}" method="GET">
-					<button type="submit" th:values="${customer.customerId}" >変更</button>
+					<form th:action="@{customer/update/{id}(id=${customer.customerId})}" method="GET">
+					<button type="submit" name="update" th:value="${customer.customerId}" >変更</button>
 					</form>
 				</td>
 			</tr>
