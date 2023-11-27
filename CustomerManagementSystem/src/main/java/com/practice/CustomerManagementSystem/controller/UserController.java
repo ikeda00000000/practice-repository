@@ -3,6 +3,7 @@ package com.practice.CustomerManagementSystem.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.practice.CustomerManagementSystem.entity.Account;
 import com.practice.CustomerManagementSystem.entity.Customer;
+import com.practice.CustomerManagementSystem.entity.User;
 import com.practice.CustomerManagementSystem.form.CreateCustomerForm;
 import com.practice.CustomerManagementSystem.form.UpdateCustomerForm;
 import com.practice.CustomerManagementSystem.service.CreateCustomerService;
@@ -25,11 +27,6 @@ import com.practice.CustomerManagementSystem.service.GetAllAccountsService;
 import com.practice.CustomerManagementSystem.service.GetAllCustomersService;
 
 @Controller
-/*
- * "/"にPOSTするとログイン処理が開始
- * "/"はログインページかつ、ログイン失敗時、ログアウト時の遷移先
- * 
- */
 @RequestMapping("/")
 public class UserController {
 
@@ -57,9 +54,10 @@ public class UserController {
 
 	// ログイン成功時の共通画面
 	@GetMapping("common")
-	public String common(Model model) {
+	public String common(@AuthenticationPrincipal User user, Model model) {
 		// 一覧表示のserviceを呼び出す
 		List<Customer> customers = getAllCustomersService.getAllCustomers();
+		model.addAttribute("user", user);
 		model.addAttribute("customers", customers);
 		return "common";
 	}

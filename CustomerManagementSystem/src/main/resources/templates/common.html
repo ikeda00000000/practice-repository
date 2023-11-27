@@ -10,6 +10,7 @@
 <body>
 	<!--共通化したfragmentを呼び出す-->
 	<div th:replace="parts/parts::nav"></div>
+	<p th:text="'ようこそ '+ ${user.getUsername} + ' さん'"></p>
       
 	<main>
 		<h1>顧客一覧</h1>
