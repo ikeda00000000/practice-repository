@@ -42,15 +42,14 @@
 				<td th:text="${customer.account.username}"></td>
 				<td>
 					<div class="row">
-						<!--URLの最後にidのパラーメーターを送ってcontrollerでidとして受け取る -->
-						<form th:action="@{customer/confirmation/{id}(id=${customer.customerId})}" method="GET">
-							<button type="submit" name="confirmation" th:value="${customer.customerId}"
-								class="submit-button">ケース</button>
+						<form th:action="@{/case/case_index}" method="GET">
+						<button type="submit" class="submit-button" 
+						     name="customerId" th:value="${customer.customerId}">ケース</button>
 						</form>
 
-						<form th:action="@{customer/update/{id}(id=${customer.customerId})}" method="GET">
-							<button type="submit" name="update" th:value="${customer.customerId}"
-								class="submit-button">変更</button>
+						<form th:action="@{customer/update}" method="GET">
+							<button type="submit" class="submit-button"
+							      name="customerId" th:value="${customer.customerId}">変更</button>
 						</form>
 
 						<form th:action="@{customer/delete/{id}(id=${customer.customerId})}" method="GET">

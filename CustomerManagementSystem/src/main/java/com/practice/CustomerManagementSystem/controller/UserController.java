@@ -100,8 +100,8 @@ public class UserController {
 	}
 	
 	// 編集画面へアクセス
-	@GetMapping("customer/update/{customerId}")
-	public String customerUpdate(@PathVariable("customerId") Long customerId, Model model) {
+	@GetMapping("customer/update")
+	public String customerUpdate(@RequestParam("customerId") Long customerId, Model model) {
 		makePullDown(model);
 		UpdateCustomerForm form = updateCustomerFormService.prepareForm(customerId);
 		model.addAttribute("form", form);

@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.practice.CustomerManagementSystem.entity.Account;
 import com.practice.CustomerManagementSystem.service.FindByKeywordService;
@@ -47,6 +49,12 @@ public class CaseController {
 //		model.addAttribute("customers", customers);
 //		return "top";
 //	}
+	
+	@GetMapping("case/case_index")
+	public String caseIndex(@RequestParam("customerId") Long customerId, Model model) {
+		return "/case/case_index";
+		
+	}
 	
 	// 担当者のプルダウンを作成するメソッド
 	public void makePullDown(Model model) {

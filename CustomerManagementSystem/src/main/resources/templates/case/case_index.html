@@ -2,8 +2,8 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org"
     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	
-<!--(1)共通headerで置き換える-->
-<head th:replace="~{parts/parts :: meta_header('top',~{::link},~{::script})}">
+<!--共通headerで置き換える-->
+<head th:replace="~{parts/parts :: meta_header('ケース管理',~{::link},~{::script})}">
 	<title></title>
 </head>
 
@@ -11,7 +11,7 @@
 	<!--共通化したfragmentを呼び出す-->
 	<div th:replace="parts/parts::nav"></div>
 	<main>
-		<h1>顧客情報確認画面</h1>
+		<h3>ケース一覧</h3>
 	
 	</main>
 </body>
