@@ -1,4 +1,4 @@
-package com.practice.CustomerManagementSystem.service;
+package com.practice.CustomerManagementSystem.service.CRUD;
 
 import java.util.List;
 

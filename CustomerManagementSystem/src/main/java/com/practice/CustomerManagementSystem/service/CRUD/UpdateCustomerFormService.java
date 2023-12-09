@@ -1,4 +1,4 @@
-package com.practice.CustomerManagementSystem.service;
+package com.practice.CustomerManagementSystem.service.CRUD;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -20,12 +20,12 @@ import com.practice.CustomerManagementSystem.entity.Customer;
 import com.practice.CustomerManagementSystem.entity.User;
 import com.practice.CustomerManagementSystem.form.CreateCustomerForm;
 import com.practice.CustomerManagementSystem.form.UpdateCustomerForm;
-import com.practice.CustomerManagementSystem.service.CreateCustomerService;
-import com.practice.CustomerManagementSystem.service.CustomerDeleteService;
 import com.practice.CustomerManagementSystem.service.FindByKeywordService;
 import com.practice.CustomerManagementSystem.service.GetAllAccountsService;
-import com.practice.CustomerManagementSystem.service.GetAllCustomersService;
-import com.practice.CustomerManagementSystem.service.UpdateCustomerFormService;
+import com.practice.CustomerManagementSystem.service.CRUD.CreateCustomerService;
+import com.practice.CustomerManagementSystem.service.CRUD.DeleteCustomerService;
+import com.practice.CustomerManagementSystem.service.CRUD.GetAllCustomersService;
+import com.practice.CustomerManagementSystem.service.CRUD.UpdateCustomerFormService;
 
 @Controller
 @RequestMapping("/")
@@ -47,7 +47,7 @@ public class UserController {
 	private UpdateCustomerFormService updateCustomerFormService; 
 	
 	@Autowired
-	private CustomerDeleteService customerDeleteService;
+	private DeleteCustomerService customerDeleteService;
 
 	// "/"にリクエストがあったら
 	@GetMapping("login/index")
