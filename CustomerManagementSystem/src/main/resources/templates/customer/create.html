@@ -3,7 +3,7 @@
     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	
 <!--共通headerで置き換える-->
-<head th:replace="~{parts/parts :: meta_header('top',~{::link},~{::script})}">
+<head th:replace="~{parts/parts :: meta_header('登録',~{::link},~{::script})}">
 	<title></title>
 </head>
 
@@ -71,7 +71,7 @@
 			</form>
 
 			<div>
-				<a th:href="@{/common}">戻る</a>
+				<a th:href="@{/top}">戻る</a>
 			</div>
 
 		</main>
