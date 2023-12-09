@@ -21,6 +21,7 @@ import com.practice.CustomerManagementSystem.entity.User;
 import com.practice.CustomerManagementSystem.form.CreateCustomerForm;
 import com.practice.CustomerManagementSystem.form.UpdateCustomerForm;
 import com.practice.CustomerManagementSystem.service.CreateCustomerService;
+import com.practice.CustomerManagementSystem.service.CustomerDeleteService;
 import com.practice.CustomerManagementSystem.service.FindByKeywordService;
 import com.practice.CustomerManagementSystem.service.GetAllAccountsService;
 import com.practice.CustomerManagementSystem.service.GetAllCustomersService;
@@ -44,6 +45,9 @@ public class UserController {
 	
 	@Autowired
 	private UpdateCustomerFormService updateCustomerFormService; 
+	
+	@Autowired
+	private CustomerDeleteService customerDeleteService;
 
 	// "/"にリクエストがあったら
 	@GetMapping("login/index")
@@ -131,6 +135,12 @@ public class UserController {
 	    }
 	    updateCustomerFormService.update(form);
 	    return "redirect:/top";
+	}
+	
+	@GetMapping("customer/delete/{customerId}")
+	public String customerDelete(@PathVariable("customerId") Long customerId, Model model) {
+		customerDeleteService.delete(customerId);
+		return "redirect:/top";
 	}
 	
 	// 担当者のプルダウンを作成するメソッド

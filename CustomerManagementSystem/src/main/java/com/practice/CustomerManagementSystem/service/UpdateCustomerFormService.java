@@ -9,13 +9,13 @@ import com.practice.CustomerManagementSystem.form.UpdateCustomerForm;
 import com.practice.CustomerManagementSystem.mapper.CustomerMapper;
 
 @Service
-public class PrepareUpdateCustomerFormService{
+public class UpdateCustomerFormService{
 	
 	@Autowired
 	private CustomerMapper mapper;
 	
 	@Transactional
-	public UpdateCustomerForm prepareUpdateCustomerForm(Long id){
+	public UpdateCustomerForm prepareForm(Long id){
 		Customer customer = mapper.findByCustomerId(id);
 		UpdateCustomerForm form = new UpdateCustomerForm();
 		form.setCustomerId(customer.getCustomerId());
@@ -34,7 +34,25 @@ public class PrepareUpdateCustomerFormService{
 		form.setAccountId(customer.getAccountId());
 		// isdeletedはそもそも一覧表示されないので必ず0
 		return form;
+	}
+	
+	@Transactional
+	public int update(UpdateCustomerForm form) {
+		Customer customer = new Customer();
+		customer.setCustomerName(form.getCustomerName());
+		if(form.getIndividual() == 1) {
+			customer.setIndividual(true);
+		} else {
+			customer.setIndividual(false);
+		}
+		customer.setBirth(form.getBirth());
+		customer.setZip(form.getZip());
+		customer.setAddress(form.getAddress());
+		customer.setTel(form.getTel());
+		customer.setMail(form.getMail());
+		customer.setAccountId(form.getAccountId());
 		
+		return mapper.update(customer);
 	}
 	
 }

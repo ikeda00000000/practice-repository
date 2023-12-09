@@ -126,8 +126,35 @@
 	        customers
 	    WHERE
 	        customer_id = #{id}
-
 	</select>
+	
+	<!-- 編集内容を登録 -->
+	<update id="update">
+	    UPDATE
+	        customers
+	    SET
+	        customer_name = #{customerName},
+	        individual = #{individual},
+	        birth = #{birth},
+	        zip = #{zip},
+	        address = #{address},
+	        tel = #{tel},
+	        mail = #{mail},
+	        account_id = #{accountId},
+	    WHERE
+	        customer_id = #{customerId}
+	
+	</update>
+	
+	<!-- 論理削除 -->
+	<delete id="delete" parameterType="Long">
+	    UPDATE
+	        customers
+	    SET
+	       isdeleted = 1
+	    WHERE
+	        customer_id = #{customerId} 
+	</delete>
 	
 	
 	

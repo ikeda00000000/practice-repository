@@ -22,4 +22,10 @@ public interface CustomerMapper {
     // IDで1件取得
     public Customer findByCustomerId(Long id);
     
+    // 編集内容を登録
+    public int update(Customer customer);
+    
+    // 論理削除
+    public int delete(Long customerId);
+    
 }
