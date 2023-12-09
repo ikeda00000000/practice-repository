@@ -12,7 +12,7 @@
 	<!-- (3)各ページのタイトルのフォーマット指定ができる-->
 	<title th:text="${title}+' | 顧客管理システム'"></title>
 	<!-- (4)各View固有で読み込むものがあれば指定もできる-->
-	<th:block th:replace="${links}">
+	<th:block th:replace="${links} ?: _">
 </head>
 
 <!-- (5)body内でも共通化したいものがあればfragment化できる-->
