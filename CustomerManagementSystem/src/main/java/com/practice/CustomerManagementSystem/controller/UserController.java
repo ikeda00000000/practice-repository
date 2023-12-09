@@ -49,13 +49,7 @@ public class UserController {
 	@Autowired
 	private DeleteCustomerService customerDeleteService;
 
-	// "/"にリクエストがあったら
-	@GetMapping("login/index")
-	public String index() {
-		// ログインフォームを提供する
-		return "/login/index";
-	}
-
+	
 	// ログイン成功時の共通画面
 	@GetMapping("top")
 	public String top(@AuthenticationPrincipal User user, Model model) {
@@ -64,18 +58,6 @@ public class UserController {
 		model.addAttribute("user", user);
 		model.addAttribute("customers", customers);
 		return "top";
-	}
-
-	// ROLEがUSERのみ
-	@GetMapping("user")
-	public String user() {
-		return "user";
-	}
-
-	// ROLEがADMINのみ
-	@GetMapping("admin")
-	public String admin() {
-		return "admin";
 	}
 
 	// キーワード検索
