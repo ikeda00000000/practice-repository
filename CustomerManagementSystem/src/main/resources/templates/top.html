@@ -15,7 +15,7 @@
 	<div th:text="'ようこそ '+ ${user.getUsername} + ' さん'"></div>
 
 	<main>
-		<h1>顧客一覧</h1>
+		<h3>顧客一覧</h3>
 		<div class="row">
 		<a th:href="@{customer/create}">新規登録</a>
 		<!-- inputのname属性…コントローラーの@RequestParam("searchByKeyword")と紐づけ-->
