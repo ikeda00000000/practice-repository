@@ -1,0 +1,48 @@
+/* 共通headerのCSS */
+.header{
+  margin-top: 10px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background:white;
+  flex-direction: column;
+  align-items: center;
+
+}
+.header-inner{
+	  display: inline;
+  max-width: 1152px;
+
+  height: 100%;
+
+  justify-content: flex-start;
+  align-items: center;
+}
+
+ul.nav-group{
+  display: flex;
+  justify-content: flex-end
+
+}
+.nav-group > * + *{
+  margin-left: 30px;
+}
+
+.nav-item{
+  display: inline;
+  font-size: 16px;
+  color: black;
+}
+
+a{
+  color:inherit; /* 親要素nav-itemの色を継承する */
+  text-decoration: none;
+}
+
+.logout{
+	font-size: 16px;
+	background-color: white;
+	border: none;
+}

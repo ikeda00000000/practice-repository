@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<!--共通headerで置き換える-->
+
+<head th:replace="~{parts/parts :: meta_header('top',~{::link},~{::script})}">
+	<link rel="stylesheet" th:href="@{../../css/common-table.css}">
+	<title></title>
+</head>
+
+<body>
+	<!--共通化したfragmentを呼び出す-->
+	<div th:replace="parts/parts::nav">
+	</div>
+	<div th:text="'ようこそ '+ ${user.getUsername} + ' さん'"></div>
+
+	<main>
+		<h1>顧客一覧</h1>
+		<div class="row">
+		<a th:href="@{customer/create}">新規登録</a>
+		<!-- inputのname属性…コントローラーの@RequestParam("searchByKeyword")と紐づけ-->
+		<form th:action="@{/top/search}" method="get" class="search-form">
+			<input type="text" name="searchByKeyword" placeholder="検索キーワードを入力してください" >
+			<button type="submit" ></button>
+		</form>
+		</div>
+
+		<table>
+			<tr>
+				<th>ID</th>
+				<th>名前</th>
+				<th>区分</th>
+				<th>担当</th>
+				<th>情報</th>
+			</tr>
+			<tr th:each="customer:${customers}" class="table-line">
+				<td th:text="${customer.customerId}"></td>
+				<td th:text="${customer.customerName}"></td>
+				<!-- trueなら個人、falseなら法人と表示する -->
+				<td th:if="${customer.individual}">個人</td>
+				<td th:if="${!customer.individual}">法人</td>
+				<td th:text="${customer.account.username}"></td>
+				<td>
+					<div class="row">
+					<!--URLの最後にidのパラーメーターを送ってcontrollerでidとして受け取る -->
+					<form th:action="@{customer/confirmation/{id}(id=${customer.customerId})}" method="GET">
+						<button type="submit" name="confirmation" th:value="${customer.customerId}"
+							class="submit-button">確認</button>
+					</form>
+		
+					<form th:action="@{customer/update/{id}(id=${customer.customerId})}" method="GET">
+						<button type="submit" name="update" th:value="${customer.customerId}"
+							class="submit-button">変更</button>
+					</form>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</main>
+</body>
+
+</html>

@@ -23,6 +23,7 @@ public class WebSecurityConfig {
 		.authorizeHttpRequests(
 		// /login/indexはアクセス制限かけない
 				(requests) -> requests.requestMatchers("/login/**").permitAll()
+		.requestMatchers("/css/**").permitAll()
 		// /adminはADMINロールをもつユーザのみアクセス可能
 		// TODO 必要に応じて/admin/*
 		.requestMatchers("/admin").hasRole("ADMIN")
@@ -42,7 +43,7 @@ public class WebSecurityConfig {
 		.usernameParameter("username")
 		.passwordParameter("password")
 		// ログイン成功時の遷移先
-		.defaultSuccessUrl("/common", true)
+		.defaultSuccessUrl("/top", true)
 	   ).logout((form) -> form
 		// ログアウト処理を行うページ指定、ここにPOSTするとログアウト
 		.logoutUrl("/logout")

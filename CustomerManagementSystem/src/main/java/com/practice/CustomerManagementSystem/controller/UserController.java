@@ -24,7 +24,7 @@ import com.practice.CustomerManagementSystem.service.CreateCustomerService;
 import com.practice.CustomerManagementSystem.service.FindByKeywordService;
 import com.practice.CustomerManagementSystem.service.GetAllAccountsService;
 import com.practice.CustomerManagementSystem.service.GetAllCustomersService;
-import com.practice.CustomerManagementSystem.service.PrepareUpdateCustomerFormService;
+import com.practice.CustomerManagementSystem.service.UpdateCustomerFormService;
 
 @Controller
 @RequestMapping("/")
@@ -43,7 +43,7 @@ public class UserController {
 	private CreateCustomerService createCustomerService;
 	
 	@Autowired
-	private PrepareUpdateCustomerFormService prepareUpdateCustomerFormService; 
+	private UpdateCustomerFormService updateCustomerFormService; 
 
 	// "/"にリクエストがあったら
 	@GetMapping("login/index")
@@ -53,13 +53,13 @@ public class UserController {
 	}
 
 	// ログイン成功時の共通画面
-	@GetMapping("common")
-	public String common(@AuthenticationPrincipal User user, Model model) {
+	@GetMapping("top")
+	public String top(@AuthenticationPrincipal User user, Model model) {
 		List<Customer> customers = getAllCustomersService.getAllCustomers();
 		// ログイン中のセッションユーザー情報をviewに渡す
 		model.addAttribute("user", user);
 		model.addAttribute("customers", customers);
-		return "common";
+		return "top";
 	}
 
 	// ROLEがUSERのみ
@@ -75,14 +75,15 @@ public class UserController {
 	}
 
 	// キーワード検索
-	@GetMapping("common/search")
-	public String search(@RequestParam("searchByKeyword") String keyword, Model model) {
+	@GetMapping("top/search")
+	public String search(@AuthenticationPrincipal User user,@RequestParam("searchByKeyword") String keyword, Model model) {
 
 		//受け取ったkeywordで部分一致するユーザーを返すServiceを呼び出す
 		List<Customer> customersMatchedKeyword = findByKeywordService.findByKeyword(keyword);
 		model.addAttribute("customers", customersMatchedKeyword);
+		model.addAttribute("user", user);
 
-		return "common";
+		return "top";
 	}
 
 	// 新規登録画面へアクセス
@@ -108,17 +109,28 @@ public class UserController {
 		createCustomerService.create(form);
 		
 		// ホーム画面へ戻す。/をつけないと404エラー
-		return "redirect:/common";
+		return "redirect:/top";
 		
 	}
 	
 	// 編集画面へアクセス
-	@GetMapping("customer/update/{id}")
-	public String customerUpdate(@PathVariable("id") Long id, Model model) {
+	@GetMapping("customer/update/{customerId}")
+	public String customerUpdate(@PathVariable("customerId") Long customerId, Model model) {
 		makePullDown(model);
-		UpdateCustomerForm form = prepareUpdateCustomerFormService.prepareUpdateCustomerForm(id);
+		UpdateCustomerForm form = updateCustomerFormService.prepareForm(customerId);
 		model.addAttribute("form", form);
 		return "customer/update";
+	}
+	
+	@PostMapping("customer/update/{customerId}")
+	public String customerUpdate(@PathVariable("customerId") Long customerId, @Validated @ModelAttribute("form") UpdateCustomerForm form, BindingResult result, Model model) {
+	    if(result.hasErrors()) {
+	    	makePullDown(model);
+	    	model.addAttribute("form", form);
+	    	return "customer/update";
+	    }
+	    updateCustomerFormService.update(form);
+	    return "redirect:/top";
 	}
 	
 	// 担当者のプルダウンを作成するメソッド

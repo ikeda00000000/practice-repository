@@ -1,0 +1,37 @@
+
+/* common.html（共通画面）のボタン */
+
+/* submit-buttonクラスを付与されたtype="submit"ボタン */
+.submit-button, input[type="submit"] {
+  align-items: center;
+  appearance: none;
+  background-color: #fff;
+  border: 1px solid #dbdbdb;
+  border-radius: .375em;
+  box-shadow: none;
+  box-sizing: border-box;
+  color: #363636;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 15px;
+  height: 2.5em;
+  justify-content: center;
+  line-height: 1.5;
+  margin-right: 10px;
+  padding: 5px 10px;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: top;
+  white-space: nowrap;
+ 	
+}
+
+.submit-button:hover {
+  border-color: #b5b5b5;
+  background-color: rgb(249,250,251);
+}
+
+/* search-buttonクラスを付与されたtype="submit"ボタン */

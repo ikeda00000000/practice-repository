@@ -12,7 +12,7 @@
 	<div th:replace="parts/parts::nav"></div>
 	<main>
 		<h1>情報変更画面</h1>
-		<form th:action="@{/customer/create}" th:object="${form}" method="POST">
+		<form th:action="@{/customer/update/{customerId}(customerId=${customerId})}" th:object="${form}" method="POST">
 			<div>
 				<label for="customer_name">氏名</label>
 				<input id="customer_name" type="text" th:field="*{customerName}"/>
