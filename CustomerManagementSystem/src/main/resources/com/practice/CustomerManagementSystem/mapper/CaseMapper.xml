@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.practice.CustomerManagementSystem.mapper.CaseMapper">
+	<!-- 
+	<resultMap id="account" type="com.practice.CustomerManagementSystem.entity.Account">
+		<id property="id" column="id" />
+		<result property="username" column="username" />
+		<result property="password" column="password" />
+		<result property="role" column="ROLE" />
+	</resultMap>
+	 -->
+
+	<!-- CustomerIdで取得 -->
+	<select id="findByCustomerId" parameterType="long" resultType="com.practice.CustomerManagementSystem.entity.Case">
+		SELECT
+		    *
+		FROM
+		    cases
+		WHERE
+		    customer_id = #{customerId}
+	</select>
+	
+</mapper>

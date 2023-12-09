@@ -10,34 +10,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.practice.CustomerManagementSystem.entity.Account;
-import com.practice.CustomerManagementSystem.service.FindByKeywordService;
+import com.practice.CustomerManagementSystem.entity.Case;
 import com.practice.CustomerManagementSystem.service.GetAllAccountsService;
-import com.practice.CustomerManagementSystem.service.CRUD.CreateCustomerService;
-import com.practice.CustomerManagementSystem.service.CRUD.DeleteCustomerService;
-import com.practice.CustomerManagementSystem.service.CRUD.GetAllCustomersService;
-import com.practice.CustomerManagementSystem.service.CRUD.UpdateCustomerFormService;
+import com.practice.CustomerManagementSystem.service.CASE.CaseService;
 
 @Controller
 @RequestMapping("/")
 public class CaseController {
 
 	@Autowired
-	private GetAllCustomersService getAllCustomersService;
-
-	@Autowired
-	private FindByKeywordService findByKeywordService;
+	private CaseService caseService;
 
 	@Autowired
 	private GetAllAccountsService getAllAccountsService;
 	
-	@Autowired
-	private CreateCustomerService createCustomerService;
-	
-	@Autowired
-	private UpdateCustomerFormService updateCustomerFormService; 
-	
-	@Autowired
-	private DeleteCustomerService customerDeleteService;
+
 
 	
 //	// ログイン成功時の共通画面
@@ -52,6 +39,9 @@ public class CaseController {
 	
 	@GetMapping("case/case_index")
 	public String caseIndex(@RequestParam("customerId") Long customerId, Model model) {
+		List<Case> cases = caseService.getCases(customerId);
+		model.addAttribute("cases", cases);
+		
 		return "/case/case_index";
 		
 	}
