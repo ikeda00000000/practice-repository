@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<!--共通headerで置き換える-->
+
+<head th:replace="~{parts/parts :: meta_header('ケース管理',~{::link},~{::script})}">
+	<link rel="stylesheet" th:href="@{../../css/common-table.css}">
+	<title></title>
+</head>
+
+<body>
+	<!--共通化したfragmentを呼び出す-->
+	<div th:replace="parts/parts::nav"></div>
+	<main>
+		<h3>ケース登録</h3>
+		<div class="row">
+			
+
+		
+
+			
+
+	</main>
+	<form th:action="@{/case/case_index}" method="GET">
+				<button type="submit" class="submit-button" name="customerId"
+					th:value="${customerId}">ケース一覧に戻る</button>
+			</form>
+</body>
+
+</html>

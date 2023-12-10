@@ -1,8 +1,8 @@
 
-/* common.html（共通画面）のボタン */
+/* 全ページのボタン */
 
 /* submit-buttonクラスを付与されたtype="submit"ボタン */
-.submit-button, input[type="submit"] {
+.submit-button{
   align-items: center;
   appearance: none;
   background-color: #fff;
@@ -34,4 +34,43 @@
   background-color: rgb(249,250,251);
 }
 
-/* search-buttonクラスを付与されたtype="submit"ボタン */
+/* case_indexのケース追加ボタン */
+.create-button {
+	text-align: center;
+	vertical-align: middle;
+	text-decoration: none;
+	width: 145px;
+	margin: auto;
+	padding: 7px 5px 5px 5px;
+	border: 2px solid #27acd9;
+	color: #27acd9;
+	transition: 0.5s;
+	background:#fff;
+	display: inline-flex;
+	font-size: 16px;
+}
+
+.create-button:hover {
+	color: #fff;
+	background: #27acd9
+}
+
+.create-button::before {
+  /* font-familyは↓で、contentで使いたいアイコンコードを指定 */
+  font-family:'Material Symbols Outlined';
+  content: '\e147';
+  font-size: 18px;
+  margin-right: 5px;
+  margin-left: 4px;
+  }
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+
+
