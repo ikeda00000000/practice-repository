@@ -2,23 +2,58 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
 	namespace="com.practice.CustomerManagementSystem.mapper.CaseMapper">
-	<!-- 
-	<resultMap id="account" type="com.practice.CustomerManagementSystem.entity.Account">
-		<id property="id" column="id" />
-		<result property="username" column="username" />
-		<result property="password" column="password" />
-		<result property="role" column="ROLE" />
+	
+	<resultMap id="case" type="com.practice.CustomerManagementSystem.entity.Case">
+		<id property="caseId" column="case_id" />
+		<result property="customerId" column="customer_id" />
+		<result property="caseDate" column="case_date" />
+		<result property="accountId" column="account_id" />
+		<result property="categoryId" column="category_id" />
+		<result property="title" column="title" />
+		<result property="content" column="content" />
+		<result property="isDeleted" column="isdeleted" />
+		<association property="category" resultMap="category" />
+		<association property="account" resultMap="account" />
 	</resultMap>
-	 -->
+	
+	<resultMap id="category" type="com.practice.CustomerManagementSystem.entity.Category">
+	    <id property="categoryId" column="category_id" />
+	    <result property="category" column="category"/>
+	</resultMap>
+	
+	<resultMap id="account" type="com.practice.CustomerManagementSystem.entity.Account">
+	    <id property="id" column="id" />
+	    <result property="username" column="username"/>
+	</resultMap>
+	
 
 	<!-- CustomerIdで取得 -->
-	<select id="findByCustomerId" parameterType="long" resultType="com.practice.CustomerManagementSystem.entity.Case">
+	<select id="findByCustomerId" parameterType="long" resultMap="case">
 		SELECT
-		    *
+		    case_id,
+		    customer_id,
+		    case_date,
+		    account_id,
+		    username,
+		    cases.category_id,
+		    category,
+		    title,
+		    content,
+		    cases.isdelete
 		FROM
 		    cases
+		INNER JOIN
+		    users
+		ON
+		    account_id = users.id
+		INNER JOIN
+		    categories
+		ON
+		    cases.category_id = categories.category_id
 		WHERE
 		    customer_id = #{customerId}
+		ORDER BY
+		    case_date ASC
 	</select>
 	
 </mapper>

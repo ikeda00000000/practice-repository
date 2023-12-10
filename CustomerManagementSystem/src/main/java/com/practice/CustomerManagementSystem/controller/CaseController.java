@@ -24,26 +24,18 @@ public class CaseController {
 	@Autowired
 	private GetAllAccountsService getAllAccountsService;
 	
-
-
-	
-//	// ログイン成功時の共通画面
-//	@GetMapping("top")
-//	public String top(@AuthenticationPrincipal User user, Model model) {
-//		List<Customer> customers = getAllCustomersService.getAllCustomers();
-//		// ログイン中のセッションユーザー情報をviewに渡す
-//		model.addAttribute("user", user);
-//		model.addAttribute("customers", customers);
-//		return "top";
-//	}
-	
 	@GetMapping("case/case_index")
 	public String caseIndex(@RequestParam("customerId") Long customerId, Model model) {
 		List<Case> cases = caseService.getCases(customerId);
+		model.addAttribute("customerId", customerId);
 		model.addAttribute("cases", cases);
-		
 		return "/case/case_index";
 		
+	}
+	
+	@GetMapping("case/case_create")
+	public String caseCreate(@RequestParam("customerId") Long customerId, Model model) {
+		return "top";
 	}
 	
 	// 担当者のプルダウンを作成するメソッド

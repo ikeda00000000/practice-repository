@@ -1,6 +1,6 @@
 package com.practice.CustomerManagementSystem.entity;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 import org.springframework.stereotype.Component;
 
@@ -13,7 +13,7 @@ public class Case{
 	private Long caseId;
 	private Long customerId;
 	private Customer customer;
-	private Date createCaseDate;
+	private Timestamp caseDate;
 	private Long accountId;
 	private Account account;
 	private Long categoryId;

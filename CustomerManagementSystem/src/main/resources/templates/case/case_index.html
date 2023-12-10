@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org"
-    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-	
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <!--共通headerで置き換える-->
+
 <head th:replace="~{parts/parts :: meta_header('ケース管理',~{::link},~{::script})}">
+	<link rel="stylesheet" th:href="@{../../css/common-table.css}">
 	<title></title>
 </head>
 
@@ -12,7 +13,34 @@
 	<div th:replace="parts/parts::nav"></div>
 	<main>
 		<h3>ケース一覧</h3>
-	
+		<div class="row">
+			<form th:action="@{case/case_create}" method="GET">
+				<button type="submit" class="submit-button" name="customerId"
+					th:value="${customerId}">ケースを追加</button>
+			</form>
+		</div>
+
+		<table>
+			<tr>
+				<th>日時</th>
+				<th>カテゴリー</th>
+				<th>タイトル</th>
+				<th>作成者</th>
+				<th>操作</th>
+			</tr>
+
+			<tr th:each="case:${cases}" class="table-inline" th:if="${case.isDeleted == false}">
+				<td th:text="${#dates.format(new java.util.Date(case.caseDate),'yyyy/MM/dd HH:mm')}"></td>
+				<td th:text="${case.category.category}"></td>
+				<td th:text="${case.title}"></td>
+				<td th:text="${case.account.username}"></td>
+				<td></td>
+
+			</tr>
+
+		</table>
+
 	</main>
 </body>
+
 </html>
