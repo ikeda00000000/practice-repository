@@ -13,18 +13,43 @@
 	<div th:replace="parts/parts::nav"></div>
 	<main>
 		<h3>ケース登録</h3>
-		<div class="row">
-			
+		<form th:action="@{/case/case_create}" th:object="${form}" method="POST">
+			<input type="hidden" name="id" th:value="${customerId}" />
+			<div>
+				<label>氏名</label><label th:text="${customer.customerName + 'さん'}"></label>
+			</div>
+			<div>
+				<label>日時</label><input type="datetime-local"></label>
+			</div>
+			<div>
+				<label>記入者</label>
+				<select th:field="*{accountId}">
+					<option th:each="account:${accountList}" th:value="${account.id}"
+						th:text="${account.id} + ':' + ${account.username}">
+					</option>
+				</select>
+			</div>
+			<div>
+				<label>カテゴリー</label>
+				<select th:field="*{categoryId}">
+					<option th:each="category:${categoryList}" th:value="${category.categoryId}"
+						th:text="${category.categoryId} + ' : ' + ${category.category}">
+					</option>
+				</select>
+			</div>
+			<div>
+				<label>タイトル</label><input type="text" th:field="*{title}">
+			</div>
+			<div>
+				<label>本文</label><input type="text" th:field="*{content}">
+			</div>
 
-		
-
-			
+		</form>
 
 	</main>
 	<form th:action="@{/case/case_index}" method="GET">
-				<button type="submit" class="submit-button" name="customerId"
-					th:value="${customerId}">ケース一覧に戻る</button>
-			</form>
+		<button type="submit" class="submit-button" name="customerId" th:value="${customerId}">ケース一覧に戻る</button>
+	</form>
 </body>
 
 </html>
