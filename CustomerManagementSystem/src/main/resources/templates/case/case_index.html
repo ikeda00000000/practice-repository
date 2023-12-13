@@ -35,7 +35,10 @@
 				<td th:text="${case.category.category}"></td>
 				<td th:text="${case.title}"></td>
 				<td th:text="${case.account.username}"></td>
-				<td></td>
+				<td>
+					 <form th:action="@{/case/export_excel}" method="post" th:object="${myForm}">
+						 <input type="submit" value="Excelに出力" />
+				</td>
 
 			</tr>
 
