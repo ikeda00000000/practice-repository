@@ -37,7 +37,12 @@
 				<td th:text="${case.account.username}"></td>
 				<td>
 					 <form th:action="@{/case/export_excel}" method="post" th:object="${myForm}">
-						 <input type="submit" value="Excelに出力" />
+						 <button type="submit" class="submit-button" name="caseId" th:value="${case.caseId}">Excelに出力</button>
+						 </form>
+				</td>
+				<td>
+					<form th:action="@{/case/export_PDF}" method="post" th:object="${myForm}">
+						 <input type="submit" value="PDFに出力" class="submit-button" />
 				</td>
 
 			</tr>

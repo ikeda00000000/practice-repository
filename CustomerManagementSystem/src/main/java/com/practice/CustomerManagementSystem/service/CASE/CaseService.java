@@ -17,4 +17,8 @@ public class CaseService{
 		return caseMapper.findByCustomerId(customerId);
 	}
 	
+	public Case getCase(Long caseId) {
+		return caseMapper.findByCaseId(caseId);
+	}
+	
 }

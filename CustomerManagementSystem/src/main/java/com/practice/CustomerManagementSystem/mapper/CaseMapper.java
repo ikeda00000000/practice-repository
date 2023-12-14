@@ -12,5 +12,8 @@ public interface CaseMapper {
  
     // customerIdに一致するものを取得
 	List<Case> findByCustomerId(Long customerId);
+	
+	// caseIdに一致するものを取得
+	Case findByCaseId(Long caseId);
     
 }

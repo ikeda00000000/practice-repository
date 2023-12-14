@@ -8,9 +8,11 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 
+import com.practice.CustomerManagementSystem.entity.Case;
+
 @Service
 public class ExportToExcelService {
-	public void exportWorkbook(OutputStream outputStream) {
+	public void exportWorkbook(OutputStream outputStream,Case oneCase) {
 		// xlsx形式のブックの生成
 		XSSFWorkbook wb = new XSSFWorkbook();
 		// sheetの作成

@@ -12,6 +12,7 @@
 		<result property="title" column="title" />
 		<result property="content" column="content" />
 		<result property="isDeleted" column="isdeleted" />
+		<association property="customer" resultMap="customer" />
 		<association property="category" resultMap="category" />
 		<association property="account" resultMap="account" />
 	</resultMap>
@@ -26,14 +27,27 @@
 	    <result property="username" column="username"/>
 	</resultMap>
 	
+	<resultMap id="customer" type="com.practice.CustomerManagementSystem.entity.Customer">
+	    <id property="customerId" column="customer_id" />
+	    <result property="customerName" column="customer_name" />
+	    <result property="individual" column="individual" />
+	    <result property="birth" column="birth" />
+	    <result property="zip" column="zip" />
+	    <result property="address" column="address" />
+	    <result property="tel" column="tel" />
+	    <result property="mail" column="mail" />
+	    <result property="isDeleted" column="isdeleted" />
+	</resultMap>
+	
 
 	<!-- CustomerIdで取得 -->
 	<select id="findByCustomerId" parameterType="long" resultMap="case">
 		SELECT
 		    case_id,
-		    customer_id,
+		    cases.customer_id,
+		    customer_name,
 		    case_date,
-		    account_id,
+		    cases.account_id,
 		    username,
 		    cases.category_id,
 		    category,
@@ -43,17 +57,52 @@
 		FROM
 		    cases
 		INNER JOIN
+		    customers
+		ON
+		    cases.customer_id = customers.customer_id
+		INNER JOIN
 		    users
 		ON
-		    account_id = users.id
+		    cases.account_id = users.id
 		INNER JOIN
 		    categories
 		ON
 		    cases.category_id = categories.category_id
 		WHERE
-		    customer_id = #{customerId}
+		    cases.customer_id = #{customerId}
 		ORDER BY
 		    case_date ASC
 	</select>
 	
+	<!-- CaseIdで取得 -->
+	<select id="findByCaseId" parameterType="long" resultMap="case">
+	    SELECT
+		    case_id,
+		    cases.customer_id,
+		    customer_name,
+		    case_date,
+		    cases.account_id,
+		    username,
+		    cases.category_id,
+		    category,
+		    title,
+		    content,
+		    cases.isdelete
+		FROM
+		    cases
+		INNER JOIN
+		    customers
+		ON
+		    cases.customer_id = customers.customer_id
+		INNER JOIN
+		    users
+		ON
+		    cases.account_id = users.id
+		INNER JOIN
+		    categories
+		ON
+		    cases.category_id = categories.category_id
+		WHERE
+		    cases.case_id = #{caseId}
+	</select>
 </mapper>
